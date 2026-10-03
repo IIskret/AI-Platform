@@ -1,13 +1,16 @@
 import uuid
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import BIGINT, UUID, DateTime, ForeignKey, String, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from uuid6 import uuid7
 
-from src.infrastructure.db.models.agent_schema import Agent
 from src.infrastructure.db.models.base import Base
-from src.infrastructure.db.models.user_schema import User
+
+if TYPE_CHECKING:
+    from src.infrastructure.db.models.agent_schema import Agent
+    from src.infrastructure.db.models.user_schema import User
 
 
 class File(Base):

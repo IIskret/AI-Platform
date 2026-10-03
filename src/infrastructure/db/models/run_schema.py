@@ -1,20 +1,23 @@
 import enum
 import uuid
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import UUID, DateTime, ForeignKey, Integer, String, Text, func
 from sqlalchemy import Enum as SQLEnum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from uuid6 import uuid7
 
-from src.infrastructure.db.models.agent_schema import Agent
 from src.infrastructure.db.models.base import Base
-from src.infrastructure.db.models.message_schema import Message
-from src.infrastructure.db.models.tool_call_schema import ToolCall
-from src.infrastructure.db.models.user_schema import User
+
+if TYPE_CHECKING:
+    from src.infrastructure.db.models.agent_schema import Agent
+    from src.infrastructure.db.models.message_schema import Message
+    from src.infrastructure.db.models.tool_call_schema import ToolCall
+    from src.infrastructure.db.models.user_schema import User
 
 
-class RunStatus(str, enum.StrEnum):
+class RunStatus(enum.StrEnum):
     PENDING = "pending"
     RUNNING = "running"
     COMPLETED = "completed"

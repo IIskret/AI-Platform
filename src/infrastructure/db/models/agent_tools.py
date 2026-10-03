@@ -1,13 +1,16 @@
 import uuid
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import UUID, Boolean, DateTime, ForeignKey, String, UniqueConstraint, func
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from uuid6 import uuid7
 
-from src.infrastructure.db.models.agent_schema import Agent
 from src.infrastructure.db.models.base import Base
+
+if TYPE_CHECKING:
+    from src.infrastructure.db.models.agent_schema import Agent
 
 
 class AgentTool(Base):
@@ -65,5 +68,5 @@ class AgentTool(Base):
         UniqueConstraint(
             "agent_id", "tool_name",
             name="uq_agent_tool"
-        )
+        ),
     )

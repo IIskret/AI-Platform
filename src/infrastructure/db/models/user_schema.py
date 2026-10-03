@@ -1,19 +1,22 @@
 import enum
 import uuid
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import UUID, Boolean, DateTime, String, func
 from sqlalchemy import Enum as SQLEnum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from uuid6 import uuid7
 
-from src.infrastructure.db.models.agent_schema import Agent
 from src.infrastructure.db.models.base import Base
-from src.infrastructure.db.models.file_schema import File
-from src.infrastructure.db.models.run_schema import Run
+
+if TYPE_CHECKING:
+    from src.infrastructure.db.models.agent_schema import Agent
+    from src.infrastructure.db.models.file_schema import File
+    from src.infrastructure.db.models.run_schema import Run
 
 
-class UserRole(str, enum.StrEnum):
+class UserRole(enum.StrEnum):
     USER = "user"
     ADMIN = "admin"
 

@@ -1,12 +1,15 @@
 import uuid
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import UUID, DateTime, ForeignKey, Index, Integer, String, Text, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from uuid6 import uuid7
 
 from src.infrastructure.db.models.base import Base
-from src.infrastructure.db.models.run_schema import Run
+
+if TYPE_CHECKING:
+    from src.infrastructure.db.models.run_schema import Run
 
 
 class Message(Base):
@@ -59,5 +62,5 @@ class Message(Base):
             "ix_messages_run_id_sequence",
             "run_id",
             "sequence"
-        )
+        ),
     )

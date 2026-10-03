@@ -1,5 +1,6 @@
 import uuid
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import UUID, DateTime, ForeignKey, Integer, String, Text, func
 from sqlalchemy.dialects.postgresql import JSONB
@@ -7,7 +8,9 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from uuid6 import uuid7
 
 from src.infrastructure.db.models.base import Base
-from src.infrastructure.db.models.run_schema import Run
+
+if TYPE_CHECKING:
+    from src.infrastructure.db.models.run_schema import Run
 
 
 class ToolCall(Base):
