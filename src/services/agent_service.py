@@ -2,6 +2,7 @@ from src.dto.agent.agent_output import AgentOutput
 from src.dto.agent.create_agent import CreateAgent
 from src.dto.agent.update_agent import UpdateAgent
 from src.infrastructure.db.repositories.agent_repository import AgentRepository
+from src.dto.agent.selection import SelectionLLM
 
 
 class AgentService:
@@ -13,14 +14,13 @@ class AgentService:
         self._agent_repository: AgentRepository = agent_repository
         self._user_id: str = user_id
 
-    async def create_agent(self, schema: CreateAgent) -> AgentOutput | None:
+    async def create_agent(self, schema: CreateAgent, model: SelectionLLM) -> AgentOutput | None:
         return await self._agent_repository.create(
             user_id=self._user_id,
-            
             name=schema.name,
             description=schema.description,
             system_prompt=schema.system_prompt,
-            model=schema.model,
+            model=model.model_name,
             temperature=schema.temperature
         )
 
