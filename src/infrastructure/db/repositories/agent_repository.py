@@ -20,8 +20,8 @@ class AgentRepository:
         self,
         user_id: str,
         name: str,
-        description: str,
-        system_prompt: str,
+        description: str | None,
+        system_prompt: str | None,
         model: str,
         temperature: float
     ) -> AgentOutput:
@@ -40,6 +40,7 @@ class AgentRepository:
         try:
             await self._session.flush()
             return AgentOutput(
+                agent_id=agent.id,
                 name=agent.name,
                 description=agent.description,
                 system_prompt=agent.system_prompt,
