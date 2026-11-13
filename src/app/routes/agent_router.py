@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, Query, status
 
 from src.app.depends import get_agent_service, get_runs_service
 from src.dto.agent.agent_output import AgentOutput
@@ -10,6 +10,7 @@ from src.dto.runs.create_run import CreateRun
 from src.dto.runs.run_output import RunOutput
 from src.services.agent_service import AgentService
 from src.services.runs_service import RunsService
+from src.dto.agent.selection import SelectionLLM
 
 
 agent_router = APIRouter(
@@ -20,9 +21,12 @@ agent_router = APIRouter(
 @agent_router.post("/create-agent", status_code=status.HTTP_201_CREATED)
 async def create_agent(
     schema: CreateAgent,
+    model: SelectionLLM = Query(
+        ..., description="выберите модель которую хотите использовать"
+    ),
     agent_service: AgentService = Depends(get_agent_service),
 ) -> AgentOutput:
-    return await agent_service.create_agent(schema)
+    return await agent_service.create_agent(schema=schema, model=model)
 
 @agent_router.get("/get-agents", status_code=status.HTTP_200_OK)
 async def get_agents(
