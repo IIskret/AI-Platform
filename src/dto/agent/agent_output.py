@@ -10,11 +10,11 @@ class AgentOutput(BaseModel):
     name: str = Field(
         min_length=1
     )
-    description: str = Field(
-        min_length=1
+    description: str | None = Field(
+        default=None
     )
-    system_prompt: str = Field(
-        min_length=1
+    system_prompt: str | None = Field(
+        default=None
     )
     model: str = Field(
         min_length=1
